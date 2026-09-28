@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeStudio - Web Coding Editor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #0f172a; color: #f8fafc; height: 100vh; display: flex; flex-direction: column; }
+    header { background-color: #1e293b; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; }
+    header h1 { font-size: 1.2rem; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
+    .container { display: flex; flex: 1; height: calc(100vh - 60px); }
+    .editors { width: 50%; display: flex; flex-direction: column; border-right: 2px solid #334155; }
+    .editor-block { flex: 1; display: flex; flex-direction: column; border-bottom: 1px solid #334155; }
+    .editor-block label { background-color: #1e293b; padding: 5px 15px; font-size: 0.8rem; font-weight: bold; color: #94a3b8; text-transform: uppercase; }
+    textarea { flex: 1; background-color: #0f172a; color: #f1f5f9; border: none; padding: 12px; font-family: 'Courier New', Courier, monospace; font-size: 14px; resize: none; outline: none; }
+    .preview { width: 50%; background-color: #ffffff; }
+    iframe { width: 100%; height: 100%; border: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>&lt;/&gt; CodeStudio</h1>
+  </header>
+
+  <div class="container">
+    <div class="editors">
+      <div class="editor-block">
+        <label>HTML</label>
+        <textarea id="html" placeholder="Tulis kode HTML di sini..."></textarea>
+      </div>
+      <div class="editor-block">
+        <label>CSS</label>
+        <textarea id="css" placeholder="Tulis kode CSS di sini..."></textarea>
+      </div>
+      <div class="editor-block">
+        <label>JavaScript</label>
+        <textarea id="js" placeholder="Tulis kode JS di sini..."></textarea>
+      </div>
+    </div>
+    <div class="preview">
+      <iframe id="output"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function runCode() {
+      const html = document.getElementById('html').value;
+      const css = "<style>" + document.getElementById('css').value + "</style>";
+      const js = "<script>" + document.getElementById('js').value + "<\/script>";
+      const iframe = document.getElementById('output').contentWindow.document;
+
+      iframe.open();
+      iframe.write(html + css + js);
+      iframe.close();
+    }
+
+    document.getElementById('html').addEventListener('input', runCode);
+    document.getElementById('css').addEventListener('input', runCode);
+    document.getElementById('js').addEventListener('input', runCode);
+  </script>
+
+</body>
+</html>
